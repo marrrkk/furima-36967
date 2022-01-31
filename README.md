@@ -11,12 +11,12 @@
 | first_name         | string | null: false              |
 | family_name_kana   | string | null: false              |
 | first_name_kana    | string | null: false              |
-| birrth_day         | string | null] false              |
+| birth_day          | date   | null] false              |
 
 ### Association
 
-- has_many :items
-- has_many :purchases
+- has_many :item
+- has_many :purchase
 
 
 ## items テーブル
@@ -35,27 +35,25 @@
 
 ### Association
 
-- belongs_to :users
-- has_one :purchases
+- belongs_to :user
+- has_one :purchase
 
 
 ## purchases テーブル
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| buyer          | string     | null: false                    |
-| purchased_item | string     | null: false                    |
 | user           | references | null: false, foreign_key: true |
 | item           | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
 - has_one :shipping_address
 
 
-## shipping_address テーブル
+## shipping_addresses テーブル
 
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
@@ -65,8 +63,8 @@
 | address           | string     | null: false                    |
 | building          | string     |                                |
 | telephone_number  | string     | null: false                    |
-| purchase_id       | string     | null: false, foreign_key: true |
+| purchase          | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
