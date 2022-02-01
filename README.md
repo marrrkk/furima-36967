@@ -15,8 +15,8 @@
 
 ### Association
 
-- has_many :item
-- has_many :purchase
+- has_many :items
+- has_many :purchases
 
 
 ## items テーブル
@@ -58,7 +58,7 @@
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
 | post_code         | string     | null: false                    |
-| prefectures       | string     | null: false                    |
+| shipping_area_id  | integer    | null: false                    |
 | municipalities    | string     | null: false                    |
 | address           | string     | null: false                    |
 | building          | string     |                                |
