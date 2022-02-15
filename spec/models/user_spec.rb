@@ -74,24 +74,24 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
       it "family_nameは全角でないと登録できない" do
-        user =  User.new(family_name: "ｱｲｳｴｵ")
-        user.valid?
-        expect(user.errors.full_messages).to include("Family name is invalid")
+        @user.family_name = "ｱｲｳｴｵ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name is invalid")
       end
       it "first_nameは全角でないと登録できない" do
-        user = User.new(first_name: "ｱｲｳｴｵ")
-        user.valid?
-        expect(user.errors.full_messages).to include("First name is invalid")
+        @user.first_name = "ｱｲｳｴｵ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid")
       end
       it "family_name_kanaは全角カタカナでないと登録できない" do
-        user = User.new(family_name_kana: "あいうえお")
-        user.valid?
-        expect(user.errors.full_messages).to include("Family name kana is invalid")
+        @user.family_name_kana = "あいうえお"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name kana is invalid")
       end
       it "first_name_kanaは全角カタカナでないと登録できない" do
-        user = User.new(first_name_kana: "あいうえお")
-        user.valid?
-        expect(user.errors.full_messages).to include("First name kana is invalid")
+        @user.first_name_kana = "あいうえお"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana is invalid")
       end
       it 'emailが空では登録できない' do
         @user.email = ''
