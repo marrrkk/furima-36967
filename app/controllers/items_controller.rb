@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
 
   def index
-    @items = Item.all
+    # @items = Item.all
   end
 
   def new
@@ -19,10 +19,6 @@ class ItemsController < ApplicationController
   end
 
   private
-
-  def item_params
-    params.require(:item)
-  end
 
   def item_params
     params.require(:item).permit(:image, :product_name, :product_description, :category_id, :product_condition_id,
