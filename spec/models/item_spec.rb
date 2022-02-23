@@ -61,17 +61,17 @@ RSpec.describe Item, type: :model do
       it '価格は¥300以下だと出品できない' do
         @item.price = '¥299'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it '価格は¥9,999,999以上だと出品できない' do
         @item.price = '¥10,000,000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it '価格は半角数値でないと出品できない' do
         @item.price = '¥５００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it 'カテゴリーに「---」が選択されている場合は出品できない' do
         @item.category_id = 1
