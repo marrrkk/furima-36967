@@ -4,6 +4,7 @@ RSpec.describe PurchaseAddress, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
+      sleep 1
       @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
     end
   
@@ -30,9 +31,9 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'shipping_area_idを選択していないと購入できない' do
-        @purchase_address.shipping_area_id = 0
+        @purchase_address.shipping_area_id = ''
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("shipping_area_id can't be blank")
+        expect(@purchase_address.errors.full_messages).to include("Shipping area can't be blank")
       end
       it 'municipalitiesが空だと購入できない' do
         @purchase_address.municipalities = nil
@@ -48,6 +49,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.telephone_number = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Telephone number can't be blank")
+      end
+      it 'tokenが空だと購入できない' do
+        @purchase_address.token = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
