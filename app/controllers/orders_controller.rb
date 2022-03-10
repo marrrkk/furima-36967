@@ -1,12 +1,11 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: :index
 
   def index
+    # ログイン者が出品者,もしくは商品の購入履歴が存在する場合→トップへ
     @purchase_address = PurchaseAddress.new
     @item = Item.find(params[:item_id])
-  end
-
-  def new
+    redirect_to root_path if current_user == @item.user || @item.purchase.present?
   end
 
   def create
@@ -24,11 +23,13 @@ class OrdersController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_address).permit(:post_code, :shipping_area_id, :municipalities, :address, :building, :telephone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_address).permit(:post_code, :shipping_area_id, :municipalities, :address, :building, :telephone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_params[:token],

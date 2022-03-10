@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseAddress, type: :model do
-    before do
-      user = FactoryBot.create(:user)
-      item = FactoryBot.create(:item)
-      sleep 1
-      @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
-    end
-  
+  before do
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    sleep 1
+    @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
+  end
+
   describe '商品購入' do
     context '商品購入できる時' do
       it 'すべての値が正しく入力されていれば購入できる' do
