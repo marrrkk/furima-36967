@@ -1,16 +1,15 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: :index
+  before_action :set_item, only: [:index, :create]
 
   def index
     # ログイン者が出品者,もしくは商品の購入履歴が存在する場合→トップへ
     @purchase_address = PurchaseAddress.new
-    @item = Item.find(params[:item_id])
     redirect_to root_path if current_user == @item.user || @item.purchase.present?
   end
 
   def create
     @purchase_address = PurchaseAddress.new(purchase_params)
-    @item = Item.find(params[:item_id])
     if @purchase_address.valid?
       pay_item
       @purchase_address.save
@@ -35,5 +34,9 @@ class OrdersController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 end
